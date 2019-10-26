@@ -1,6 +1,6 @@
 deploy:
   stage: deploy
   script:
-    - echo 'please pull the git'
+    - wall 'please pull the git'
   tags:
     - main
