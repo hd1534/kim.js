@@ -1,15 +1,10 @@
 from ..app import DB
-import hashlib
-import base64
 import datetime
+import enum
 
 
-def password_form_check(password):
-    return len(password) > 9
-
-
-class User(DB.Model):
-    __tablename__ = 'user'
+class Bookmark(DB.Model):
+    __tablename__ = 'bookmark'
 
     idx = DB.Column(DB.Integer, primary_key=True,
                     nullable=False, autoincrement=True)
@@ -17,11 +12,14 @@ class User(DB.Model):
     password = DB.Column(DB.String(50), nullable=False)
     name = DB.Column(DB.String(50), nullable=False)
     email = DB.Column(DB.String(50), nullable=True)
-    type = DB.Column(DB.Enum('admin', 'normal'), nullable=False, default='normal')
     created_date = DB.Column(DB.DateTime, default=datetime.datetime.now)
 
-    # bookmark = DB.relationship('Bookmark', back_populates='user')
-    # recent = DB.relationship('Recent', back_populates='user')
+    bookmark_idx = DB.Column(
+        DB.Integer, DB.ForeignKey('bookmark.idx'), nullable=True)
+    bookmark = DB.relationship('Bookmark', back_populates='user')
+
+
+################################################################################
 
 
 def add_user(user_data):
@@ -66,14 +64,14 @@ def change_password(user_idx, old_pass, new_pass):
         return 404
 
     if user.password != base64.b64encode(
-                hashlib.sha256(str.encode(old_pass)).digest()):
+            hashlib.sha256(str.encode(old_pass)).digest()):
         return 403
 
     if password_form_check(new_pass):
         return 406
 
     user.password = base64.b64encode(
-                hashlib.sha256(str.encode(new_pass)).digest())
+        hashlib.sha256(str.encode(new_pass)).digest())
     DB.session.commit()
     return 200
 
@@ -90,3 +88,4 @@ def delete_user(user_idx, target_idx):
     DB.session.delete(target)
     DB.session.commit()
     return 200
+
