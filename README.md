@@ -12,7 +12,8 @@ Project Knock
 flask
 Flask-SQLAlchemy
 Flask-Migrate
-passlib
+Flask-Cors
+flask-restplus
 PyMySQL
 base64
 hashlib
