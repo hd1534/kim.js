@@ -25,4 +25,4 @@ api = Api(
     description="KIM.JS project Knock"
 )
 
-# __import__('resources.user')
+__import__('resources.user')
