@@ -12,6 +12,7 @@ Project Knock
 flask
 Flask-SQLAlchemy
 Flask-Migrate
+Flask-Cors
 flask-restplus
 PyMySQL
 base64
