@@ -1,8 +1,10 @@
-from resources import api
-
 from flask import request
-
-from flask_restplus import Resource, fields, marshal
+from flask_restplus import (
+    Namespace,
+    Resource,
+    fields,
+    marshal
+)
 # from flask_jwt_extended import create_access_token
 # from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -15,7 +17,7 @@ from databases.user import (
     delete_user
 )
 
-ns = api.namespace('user', description='User methods')
+ns = Namespace('user', description='User methods')
 
 # bookmark_full_model = ns.model('BookmarkFullModel', {
 #     'idx': fields.Integer(required=True),
