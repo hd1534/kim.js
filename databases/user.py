@@ -1,4 +1,4 @@
-from .import DB
+from databases import DB
 import hashlib
 import base64
 import datetime
