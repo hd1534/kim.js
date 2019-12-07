@@ -49,6 +49,7 @@ def get_user(user_idx):
 
 
 def get_all_user():
+    print(User.query.all())
     return 200, {'users': User.query.all()}
 
 

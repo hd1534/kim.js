@@ -88,7 +88,7 @@ class SignInResource(Resource):
 
 
 @ns.route('/<user_idx>')
-class UserResource(Resource):
+class UserIdxResource(Resource):
 
     @ns.marshal_with(user_full_model)
     @ns.doc(description='''user_idx 로 사용자의 정보를 출력한다''',
@@ -96,6 +96,3 @@ class UserResource(Resource):
                        404: '없는 유저 입니다.'})
     def get(self, user_idx):
         return get_user(user_idx)
-
-
-
