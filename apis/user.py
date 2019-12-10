@@ -41,9 +41,6 @@ user_full_model = ns.model('UserFullModel', {
     # 'recent': fields.List(fields.Nested())
 })
 
-user_full_list_model = ns.model('UserFullListModel', {
-    'users': fields.List(fields.Nested(user_full_model))
-})
 
 sign_up_model = ns.model('SignUpModel', {
     'id': fields.String(required=True),
@@ -58,6 +55,7 @@ sign_in_model = ns.model('SignInModel', {
 })
 
 password_change_model = ns.model('PasswordChangeModel', {
+    'user_idx': fields.Integer(required=True),
     'old_password': fields.String(required=True),
     'new_password': fields.String(required=True)
 })
@@ -66,7 +64,7 @@ password_change_model = ns.model('PasswordChangeModel', {
 @ns.route('/')
 class UserResource(Resource):
 
-    @ns.marshal_with(user_full_list_model)
+    @ns.marshal_list_with(user_full_model)
     @ns.doc(description='''모든 사용자의 정보를 출력한다''',
             responses={200: '모든 사용자 정보를 성공적으로 출력했습니다.'})
     def get(self):
@@ -83,8 +81,27 @@ class SignInResource(Resource):
             description='''로그인을 합니다. 성공시 정보를 줍니다.''')
     def post(self):
         data = request.get_json()
-        get_user_by_id_pass(data['id'], data['password'])
-        return {}, 200
+        return get_user_by_id_pass(data['id'], data['password'])
+
+
+@ns.route('/sign_up')
+class SignUpResource(Resource):
+    @ns.expect(sign_up_model)
+    @ns.doc(responses={200: '성공', 409: '패스워드 형식을 맞추어 주세요'},
+            description='''회원 가입을 합니다.''')
+    def post(self):
+        return add_user(request.get_json())
+
+
+@ns.route('/change/password')
+class ChangePasswordResource(Resource):
+    @ns.expect(password_change_model)
+    @ns.doc(responses={200: '성공', 403: '뭔가 문제가'},
+            description='''비밀번호를 바꿉니다.''')
+    def post(self):
+        data = request.get_json()
+        return change_password(
+            data['user_idx'], data['old_password'], data['new_password'])
 
 
 @ns.route('/<user_idx>')

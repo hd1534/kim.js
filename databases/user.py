@@ -2,10 +2,15 @@ from databases import DB
 import hashlib
 import base64
 import datetime
+from exceptions import (
+    CustomException,
+    NoPermissionException
+)
 
 
 def password_form_check(password):
-    return len(password) > 9
+    if len(password) < 9:
+        raise CustomException("incorrect password form", 406)
 
 
 class User(DB.Model):
@@ -25,9 +30,7 @@ class User(DB.Model):
 
 
 def add_user(user_data):
-    if password_form_check(user_data['password']):
-        return 406
-
+    password_form_check(user_data['password'])
     DB.session.add(
         User(
             id=user_data['id'],
@@ -38,62 +41,64 @@ def add_user(user_data):
         )
     )
     DB.session.commit()
-    return 200
+    return {}, 200
 
 
 def get_user(user_idx):
     user = User.query.filter_by(idx=user_idx).first()
     if user is None:
-        return 404, {'reason': 'no matched idx'}
-    return 200, user
+        raise CustomException('no matched idx', 404)
+    return user, 200
 
 
 def get_all_user():
-    print(User.query.all())
-    return 200, {'users': User.query.all()}
+    return User.query.all(), 200
 
 
-def get_user_by_id_pass(id, password):
-    user = User.query.filter_by(id=id)
+def get_user_by_id_pass(user_id, password):
+    password_form_check(password)
+
+    user = User.query.filter_by(id=user_id)
     if user.first() is None:
-        return 404, {'reason': "no matched id"}
+        raise CustomException("no matched id", 404)
 
     password = base64.b64encode(
         hashlib.sha256(str.encode(password)).digest())
     user.filter_by(password=password).first()
 
     if user is None:
-        return 404, {'reason': "incorrect password"}
+        raise CustomException("incorrect password", 404)
 
-    return 200, user
+    return user, 200
 
 
 def change_password(user_idx, old_password, new_password):
+    password_form_check(old_password)
+
     user = User.query.filter_by(idx=user_idx).first()
     if user is None:
-        return 404
+        raise CustomException("user is not founded", 404)
 
-    if user.password != base64.b64encode(
+    if user.password.encode() != base64.b64encode(
                 hashlib.sha256(str.encode(old_password)).digest()):
-        return 403
+        raise CustomException('old password is incorrect', 403)
 
-    if password_form_check(new_password):
-        return 406
+    password_form_check(new_password)
 
     user.password = base64.b64encode(
                 hashlib.sha256(str.encode(new_password)).digest())
     DB.session.commit()
-    return 200
+    return {}, 200
 
 
 def delete_user(user_idx, target_idx):
     if user_idx != target_idx:
         if get_user(user_idx).type != 'admin':
-            return 403
+            raise NoPermissionException()
 
     target = User.query.filter_by(idx=user_idx).first()
     if target is None:
-        return 404
+        raise CustomException("user is not founded", 404)
 
     DB.session.delete(target)
     DB.session.commit()

@@ -21,6 +21,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] =\
     'mysql+pymysql://{}:{}@{}/{}?charset=utf8mb4'\
     .format(DB_USER, DB_PASSWORD, DB_ADDRESS, DB_NAME)
 
+__import__('handler')
+
 CORS(app)
 DB.init_app(app)
 migrate = Migrate(app, DB)
