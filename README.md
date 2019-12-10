@@ -16,4 +16,5 @@ Project Knock
 2. flask db init
 3. flask db migrate
 4. flask db upgrade
-5. flask run
+5. "flask run" or "flask run --host=0.0.0.0" in commend line(or shell)
+    0.0.0.0 is broad cast
