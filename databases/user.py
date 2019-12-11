@@ -25,6 +25,7 @@ class User(DB.Model):
     type = DB.Column(DB.Enum('admin', 'normal'), nullable=False, default='normal')
     created_date = DB.Column(DB.DateTime, nullable=False, default=datetime.datetime.now)
 
+    upload_file = DB.relationship('UploadFile', back_populates='uploader')
     # bookmark = DB.relationship('Bookmark', back_populates='user')
     # recent = DB.relationship('Recent', back_populates='user')
 

@@ -8,7 +8,8 @@ from setting import (
     DB_USER,
     DB_PASSWORD,
     DB_ADDRESS,
-    DB_NAME
+    DB_NAME,
+    MAX_CONTENT_LENGTH
 )
 
 app = Flask(__name__)
@@ -20,6 +21,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] =\
     'mysql+pymysql://{}:{}@{}/{}?charset=utf8mb4'\
     .format(DB_USER, DB_PASSWORD, DB_ADDRESS, DB_NAME)
+app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
+
 
 __import__('handler')
 
