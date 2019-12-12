@@ -10,14 +10,11 @@ Project Knock
 폴더 이름을 knock 로 해주세요
 
 
-
-# 사용된 라이브러리
-
->flask <br>
->Flask-SQLAlchemy <br>
->Flask-Migrate <br>
->Flask-Cors <br>
->flask-restplus <br>
->PyMySQL <br>
->base64 <br>
->hashlib <br>
+# 사용법
+1. pip install -r requirements.txt
+2. make setting.py (refer to setting_example.py) 
+2. flask db init
+3. flask db migrate
+4. flask db upgrade
+5. "flask run" or "flask run --host=0.0.0.0" in commend line(or shell)
+    0.0.0.0 is broad cast
