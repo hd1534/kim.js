@@ -21,7 +21,10 @@ api = Api(
 
 def api_loader(*name_spaces):
     for name_space in name_spaces:
-        api.add_namespace(__import__('apis.' + name_space, fromlist=[name_space]).ns)
+        try:
+            api.add_namespace(__import__('apis.' + name_space, fromlist=[name_space]).ns)
+        except:
+            print("apis." + name_space + " passed")
 
 
 api_loader(

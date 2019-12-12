@@ -11,6 +11,7 @@ from setting import (
     DB_NAME,
     MAX_CONTENT_LENGTH
 )
+from resources import register_blueprint
 
 app = Flask(__name__)
 api.init_app(app)
@@ -27,6 +28,7 @@ app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 __import__('handler')
 
 CORS(app)
+register_blueprint(app)
 DB.init_app(app)
 migrate = Migrate(app, DB)
 
