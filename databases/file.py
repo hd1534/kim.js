@@ -15,6 +15,8 @@ class UploadFile(DB.Model):
 
     num = DB.Column(DB.Integer, nullable=False)  # 게시물내에서 번호? ex {1} 은 뭐고 {2}은 뭐다 면 {숫자} 에 매칭
 
+    file_type = DB.Column(DB.String(20), nullable=False)
+
     uploader_idx = DB.Column(
         DB.Integer, DB.ForeignKey('user.idx'), nullable=False)
     uploader = DB.relationship('User', back_populates='upload_file')
@@ -55,7 +57,8 @@ def upload_file(file, uploader_idx, num):
         num=num,
         uploader_idx=uploader_idx,
         hashed_filename=hashed_filename,
-        filename=file.filename
+        filename=file.filename,
+        file_type=file.content_type
     ))
     DB.session.commit()
 

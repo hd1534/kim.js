@@ -16,7 +16,7 @@ ALLOWED_EXTENSIONS = set(['pdf', 'txt', 'rtf', 'odf', 'ods', 'gnumeric',
                           'avi', 'wmv', 'cgi', 'scheme', 'gradle', 'jar',
                           'phar', 'asar', 'cpp', 'cs', 'c', 'h', 'o',
                           'ico', 'ttf', 'otf', 'woff', 'woff2', 'eot',
-                          'hwp'])
+                          'hwp', 'mov'])
 
 
 def allowed_file(filename):

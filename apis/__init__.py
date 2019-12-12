@@ -26,10 +26,7 @@ def api_loader(*name_spaces):
         except:
             print("apis." + name_space + " passed")
 
-    # for directory
-    api.add_namespace(__import__('apis.upload.file', fromlist=['file']).ns)
-
 
 api_loader(
-    'user'
+    'user', 'file'
 )

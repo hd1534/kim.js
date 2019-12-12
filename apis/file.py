@@ -1,27 +1,13 @@
-from flask import request, abort, send_file, make_response
-from flask_restplus import Resource, fields, marshal, Namespace
+from flask import request
+from flask_restplus import Resource, Namespace
 # from flask_jwt_extended import jwt_required, get_jwt_identity
 
-from werkzeug.datastructures import FileStorage
-from werkzeug import secure_filename
-
 # from decorators import permission_required
-from databases.upload.file import (
-    get_uploaded_file_by_idx,
+from databases.file import (
     upload_file,
     update_uploaded_file,
     delete_uploaded_file
 )
-
-from datetime import datetime
-from random import random
-import os
-import io
-import zipfile
-import hashlib
-import urllib
-import time
-
 
 ns = Namespace('file', description='File methods')
 
@@ -39,7 +25,7 @@ class FileResource(Resource):
                                확인해 주십시오.''',
                        404: "없는 유저 입니다!"})
     def post(self):
-        uploader_idx = 3  # TODO get_jwt_identity()[0]['idx']
+        uploader_idx = 1  # TODO get_jwt_identity()[0]['idx']
         num = 1  # TODO request.get_json()['num']
         return upload_file(request.files.get('file'), uploader_idx, num)
 

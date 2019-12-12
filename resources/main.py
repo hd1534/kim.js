@@ -19,5 +19,13 @@ def main_page():
     image_path = "data:image/"
     a = []
     a.append(TmpLecture())
+    a.append(TmpLecture())
+    a.append(TmpLecture())
+    a.append(TmpLecture())
+    a.append(TmpLecture())
+    a.append(TmpLecture())
+    a.append(TmpLecture())
+    a.append(TmpLecture())
+    a.append(TmpLecture())
     return render_template(
         'main.html', image_path=image_path, lectures=a)

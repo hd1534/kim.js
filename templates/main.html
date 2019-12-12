@@ -32,9 +32,9 @@
 		</ul>
 	</nav>
 	<content>
-		<div class="boxes">
 
 			{% for lecture in lectures %}
+		<div class="boxes">
 			<div class="card" style="width: 22rem;">
 		  <img src="{{ image_path + lecture.image.hashed_name }}" class="card-img-top" alt="..." style="max-height: 200px; overflow: hidden;">
 		  <div class="card-body">
@@ -43,9 +43,9 @@
 		    <a href="{{ 'lecture/' + lecture.idx|string }}" class="btn btn-primary">수강하러 가기</a>
 		  </div>
 		  </div>
+		</div>
 			{% endfor %}
 
-		</div>
 	</content>
 </body>
 </html>
