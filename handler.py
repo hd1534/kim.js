@@ -1,4 +1,5 @@
 from apis import api
+from jinja2 import TemplateNotFound
 from exceptions import (
     NoPermissionException,
     CustomException
@@ -6,6 +7,11 @@ from exceptions import (
 
 # debug 모드는 에러 핸들러가 안되고
 # 디버그 모드가 아닐때만 핸들러가 작동하드라
+
+
+@api.errorhandler(TemplateNotFound)
+def permission_handler(error):
+    return {'message': 'TemplateNotFound'}, 404
 
 
 @api.errorhandler(NoPermissionException)

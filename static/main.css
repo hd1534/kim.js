@@ -1,0 +1,40 @@
+.search_box{
+	width:500px;
+	height: 50px;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 25px;
+	position: static;
+}
+.text_form{
+	width:400px;
+	float:left;
+}
+.button{
+	margin-left: 10px;
+	margin-top:5px;
+	width:90px;
+	float:left;
+}
+
+.nav{
+	width: 700px;
+	margin:auto;
+}
+nav{
+	border-top:1px solid grey;
+	border-bottom:1px solid grey;
+	padding: 5px;
+	background-color: white;
+}
+body{
+	background-color : #f0f0f0;
+}
+
+.boxes{
+	width: 1080px;
+	margin:auto;
+	padding-top:20px;
+	display: flex;
+	justify-content: space-around;
+}

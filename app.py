@@ -8,8 +8,10 @@ from setting import (
     DB_USER,
     DB_PASSWORD,
     DB_ADDRESS,
-    DB_NAME
+    DB_NAME,
+    MAX_CONTENT_LENGTH
 )
+from resources import register_blueprint
 
 app = Flask(__name__)
 api.init_app(app)
@@ -20,10 +22,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] =\
     'mysql+pymysql://{}:{}@{}/{}?charset=utf8mb4'\
     .format(DB_USER, DB_PASSWORD, DB_ADDRESS, DB_NAME)
+app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
+
 
 __import__('handler')
 
 CORS(app)
+register_blueprint(app)
 DB.init_app(app)
 migrate = Migrate(app, DB)
 

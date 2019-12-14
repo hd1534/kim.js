@@ -1,4 +1,4 @@
-from .import DB
+from databases import DB
 import datetime
 import enum
 

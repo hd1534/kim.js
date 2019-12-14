@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Knock! 학생들의 마음을 두드리다.</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+	<div class="search_box">
+		<div class="text_form">
+			<input class="form-control form-control-lg" type="text" placeholder="박상욱의 magic class를 검색해 보세요!">
+		</div>
+		<div class="button">
+			<input class="btn btn-primary" type="submit" value="Submit">
+		</div>
+	</div>
+	<nav>
+		<ul class="nav">
+  			<li class="nav-item">
+    			<a class="nav-link active" href="#">About us</a>
+  			</li>
+ 			<li class="nav-item">
+   				<a class="nav-link" href="#">강좌보기</a>
+  			</li>
+  			<li class="nav-item">
+    			<a class="nav-link" href="#">내 강좌 정보</a>
+  			</li>
+  			<li class="nav-item">
+    			<a class="nav-link" href="#">강좌 올리기</a>
+  			</li>
+		</ul>
+	</nav>
+	<content>
+
+			{% for course in courses %}
+		<div class="boxes">
+			<div class="card" style="width: 22rem;">
+		  <div class="card-body">
+		    <h5 class="card-title">{{ course.title }}</h5>
+		    <p class="card-text">{{ course.description }}</p>
+		    <a href="{{ 'course/' + course.idx|string }}" class="btn btn-primary">수강하러 가기</a>
+		  </div>
+		  </div>
+		</div>
+			{% endfor %}
+
+	</content>
+</body>
+</html>
