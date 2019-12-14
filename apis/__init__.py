@@ -28,5 +28,5 @@ def api_loader(*name_spaces):
 
 
 api_loader(
-    'user', 'file'
+    'user', 'file', 'course', 'lecture', 'tags'
 )

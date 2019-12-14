@@ -1,4 +1,10 @@
 from flask import Blueprint, render_template
+from databases.lecture import (
+    get_all_uploaded_lectures
+)
+from databases.course import (
+    get_all_uploaded_courses
+)
 
 main_resource = Blueprint('main', __name__, url_prefix='/knock/main')
 
@@ -17,15 +23,6 @@ class TmpLecture():
 @main_resource.route('/')
 def main_page():
     image_path = "data:image/"
-    a = []
-    a.append(TmpLecture())
-    a.append(TmpLecture())
-    a.append(TmpLecture())
-    a.append(TmpLecture())
-    a.append(TmpLecture())
-    a.append(TmpLecture())
-    a.append(TmpLecture())
-    a.append(TmpLecture())
-    a.append(TmpLecture())
+    a = get_all_uploaded_courses()
     return render_template(
-        'main.html', image_path=image_path, lectures=a)
+        'main.html', image_path=image_path, courses=a)

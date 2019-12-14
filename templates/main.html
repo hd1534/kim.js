@@ -33,14 +33,13 @@
 	</nav>
 	<content>
 
-			{% for lecture in lectures %}
+			{% for course in courses %}
 		<div class="boxes">
 			<div class="card" style="width: 22rem;">
-		  <img src="{{ image_path + lecture.image.hashed_name }}" class="card-img-top" alt="..." style="max-height: 200px; overflow: hidden;">
 		  <div class="card-body">
-		    <h5 class="card-title">{{ lecture.title }}</h5>
-		    <p class="card-text">{{ lecture.description }}</p>
-		    <a href="{{ 'lecture/' + lecture.idx|string }}" class="btn btn-primary">수강하러 가기</a>
+		    <h5 class="card-title">{{ course.title }}</h5>
+		    <p class="card-text">{{ course.description }}</p>
+		    <a href="{{ 'course/' + course.idx|string }}" class="btn btn-primary">수강하러 가기</a>
 		  </div>
 		  </div>
 		</div>

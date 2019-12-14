@@ -16,6 +16,9 @@ from databases.user import (
     change_password,
     delete_user
 )
+import databases.course
+import databases.lecture
+import databases.tags
 
 ns = Namespace('user', description='User methods')
 

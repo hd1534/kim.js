@@ -21,8 +21,11 @@ class UploadFile(DB.Model):
         DB.Integer, DB.ForeignKey('user.idx'), nullable=False)
     uploader = DB.relationship('User', back_populates='upload_file')
 
-    # lecture_idx = DB.Column(DB.Integer, DB.ForeignKey('lecture.idx'))
-    # lecture = DB.relationship('Lecture', back_populates='upload_file') 또는 게시판으로?
+    lecture_idx = DB.Column(DB.Integer, DB.ForeignKey('lecture.idx'), nullable=True)
+    lecture = DB.relationship('Lecture', back_populates='files')
+
+    # course_idx = DB.Column(DB.Integer, DB.ForeignKey('course.idx'), nullable=True)
+    # course = DB.relationship('Course', back_populates='image')
 
     uploaded_date = DB.Column(DB.DateTime, server_default=func.now())
 
